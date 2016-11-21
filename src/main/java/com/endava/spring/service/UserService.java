@@ -9,14 +9,17 @@ import java.util.List;
  * Created by Nick on 11/19/2016.
  */
 
+@Service
 public interface UserService {
-    public User create(User shop);
+    User create(User user);
 
-    public User delete(int id);
+    User delete(int id);
 
-    public List<User> findAll();
+    List<User> findAll();
 
-    public User update(User shop);
+    User update(User user);
 
-    public User findById(int id);
+    User findById(int id);
+
+    User findByUsernameAndPassword(String username, String password);
 }

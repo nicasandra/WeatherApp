@@ -1,0 +1,31 @@
+<!doctype html>
+<html ng-app="demo">
+<head>
+    <title>Hello AngularJS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="res/app.js"></script>
+    <script src="res/hello.js"></script>
+</head>
+
+<body>
+<div ng-controller="Hello">
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{user.username}}</td>
+            <td>{{user.password}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <input type="text" ng-model="name" placeholder="Enter a name!">
+    <p>Hello, {{name}}</p>
+
+</div>
+</body>
+</html>

@@ -1,14 +1,13 @@
 package com.endava.spring.controller;
 
+import com.endava.spring.model.City;
 import com.endava.spring.model.User;
+import com.endava.spring.service.CityService;
 import com.endava.spring.service.UserService;
 import com.endava.spring.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,11 +16,14 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("user/")
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CityService cityService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
@@ -33,6 +35,18 @@ public class UserController {
     @ResponseBody
     public List<User> list() {
         return userService.findAll();
+    }
+
+    @RequestMapping(value = "/{id}/cities")
+    @ResponseBody
+    public List<City> cityList(@PathVariable("id") Integer id) {
+        return cityService.findById(id);
+    }
+
+    @RequestMapping(value = "/")
+    @ResponseBody
+    public User getUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+        return userService.findByUsernameAndPassword(username, password);
     }
 
 }

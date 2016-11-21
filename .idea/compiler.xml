@@ -23,10 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="untitled" />
+        <module name="WeatherApp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="untitled" target="1.5" />
+      <module name="WeatherApp" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

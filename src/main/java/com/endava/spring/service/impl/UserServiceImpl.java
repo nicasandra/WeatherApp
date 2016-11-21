@@ -14,14 +14,14 @@ import java.util.List;
  */
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Resource
     private UserRepository userRepository;
 
     @Transactional
-    public User create(User user){
-        User createdUser=user;
+    public User create(User user) {
+        User createdUser = user;
         return userRepository.save(user);
     }
 
@@ -41,4 +41,10 @@ public class UserServiceImpl implements UserService{
     public User findById(int id) {
         return null;
     }
+
+    public User findByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username, password);
+    }
+
+
 }

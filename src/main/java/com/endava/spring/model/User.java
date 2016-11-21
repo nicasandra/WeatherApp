@@ -1,9 +1,7 @@
 package com.endava.spring.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Nick on 11/19/2016.
@@ -15,27 +13,39 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    private String firstname;
+    private String lastname;
     private String username;
     private String password;
-    private String fullName;
+
+    @OneToMany(mappedBy = "user")
+    private List<City> cityList;
 
     public User() {
     }
 
-    public User(String username, String password, String fullName) {
-
-        this.username = username;
-        this.password = password;
-        this.fullName = fullName;
-    }
-
     public Integer getId() {
-
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstname;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstname = firstName;
+    }
+
+    public String getLastName() {
+        return lastname;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastname = lastName;
     }
 
     public String getUsername() {
@@ -54,11 +64,11 @@ public class User {
         this.password = password;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
+    public User(String firstName, String lastName, String username, String password) {
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+        this.firstname = firstName;
+        this.lastname = lastName;
+        this.username = username;
+        this.password = password;
     }
 }
