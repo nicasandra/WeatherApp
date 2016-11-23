@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     public User create(User user) {
-        User createdUser = user;
         return userRepository.save(user);
     }
 
@@ -42,9 +41,20 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public User findByUsernameAndPassword(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, password);
+    public User register(User user) {
+        List<User> userList = userRepository.findByEmail(user.getEmail());
+        if (userList == null || userList.size() == 0) {
+            return userRepository.save(user);
+        }
+        return null;
     }
 
+    public User login(User user) {
+        List<User> userList = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+        if (userList != null && userList.size() > 0) {
+            return userList.get(0);
 
+        }
+        return null;
+    }
 }

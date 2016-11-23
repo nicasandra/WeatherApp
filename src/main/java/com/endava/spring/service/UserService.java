@@ -13,13 +13,9 @@ import java.util.List;
 public interface UserService {
     User create(User user);
 
-    User delete(int id);
-
     List<User> findAll();
 
-    User update(User user);
+    User register(User user);
 
-    User findById(int id);
-
-    User findByUsernameAndPassword(String username, String password);
+    User login(User user);
 }

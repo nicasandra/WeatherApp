@@ -43,10 +43,18 @@ public class UserController {
         return cityService.findById(id);
     }
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public User getUser(@RequestParam("username") String username, @RequestParam("password") String password) {
-        return userService.findByUsernameAndPassword(username, password);
+    public User register(@RequestBody User user) {
+        User u = userService.register(user);
+        System.out.println(u);
+        return u;
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public User login(@RequestBody User user) {
+        return userService.login(user);
     }
 
 }
