@@ -70,20 +70,34 @@ app.controller('loginCtrl', function (SessionService, $scope, $http, $location) 
                 console.log(err);
             }
         );
-    }
+    };
+    $scope.delete = function (id) {
+        for (var i = 0; i < SessionService.getCurrentUser().cityList.length; i++) {
+            if (SessionService.getCurrentUser().cityList[i].id == id) {
+                break;
+            }
+        }
+        console.log(i);
+        $http.delete('http://localhost:8080/city/delete/' + id);
+        SessionService.getCurrentUser().cityList.splice(i, 1);
+    };
 });
 
 app.controller('addCityCtrl', function (SessionService, $scope, $http) {
-    var city={name:$scope.city};
+    var city = {};
     $scope.submitCity = function () {
-        $http.post('http://localhost:8080/user/' + SessionService.getCurrentUser().id + '/addCity', city).then(function (response) {
-
+        city.name = $scope.city;
+        $http.post('http://localhost:8080/city/create/' + SessionService.getCurrentUser().id, city).then(function (response) {
+                console.log(SessionService.getCurrentUser().cityList);
+                console.log($scope.city);
+                SessionService.getCurrentUser().cityList.push({'id': response.data.id, 'name': $scope.city});
+                $scope.city = '';
                 ;
             },
             function (err) {
                 console.log(err);
             }
         );
-    }
+    };
 });
 

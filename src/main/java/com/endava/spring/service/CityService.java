@@ -13,4 +13,6 @@ public interface CityService {
     City create(City city);
 
     List<City> findByUser_id(Integer id);
+
+    void delete(Integer id);
 }

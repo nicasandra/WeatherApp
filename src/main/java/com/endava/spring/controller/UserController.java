@@ -29,14 +29,6 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public User create(@RequestBody User user) {
-        List<City> list=new ArrayList<City>();
-        City c1=new City();
-        c1.setName("asdasdas");
-        City c2=new City();
-        c2.setName("sdfsdfd");
-        list.add(c1);
-        list.add(c2);
-        user.setCityList(list);
         return userService.create(user);
     }
 

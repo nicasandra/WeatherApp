@@ -25,4 +25,8 @@ public class CityServiceImpl implements CityService {
     public List<City> findByUser_id(Integer id) {
         return cityRepository.findByUser_id(id);
     }
+
+    public void delete(Integer id) {
+        cityRepository.delete(id);
+    }
 }

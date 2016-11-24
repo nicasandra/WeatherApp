@@ -10,7 +10,7 @@
         <tbody ng-controller="loginCtrl">
         <tr ng-repeat="city in loggedUser.cityList">
             <td>{{city.name}}</td>
-            <td>X</td>
+            <td ng-click="delete(city.id)">{{city.id}}</td>
         </tr>
         </tbody>
     </table>
