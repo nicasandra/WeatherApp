@@ -7,10 +7,20 @@ app.config(function ($routeProvider) {
             templateUrl: "/res/pages/register.html"
         })
         .when("/dashboard", {
+            resolve: {
+                "check": function ($location, SessionService) {
+                    if (!SessionService.getUserAuthenticated()) {
+                        $location.path("/");
+                    }
+                }
+            },
             templateUrl: "/res/pages/dashboard.html"
         })
         .when("/weather", {
             templateUrl: "/res/pages/weather.html"
+        })
+        .when("/", {
+            templateUrl: "/res/pages/login.html"
         })
         .otherwise({
             redirectTo: "/"
@@ -37,6 +47,7 @@ app.controller('registerCtrl', function ($scope, $http, $location) {
 });
 
 app.controller('loginCtrl', function (SessionService, $scope, $http, $location) {
+    $scope.loggedUser = SessionService.getCurrentUser();
     $scope.submit = function () {
         var user = {};
         user.id = null;
@@ -48,12 +59,29 @@ app.controller('loginCtrl', function (SessionService, $scope, $http, $location) 
                 if (response.data != null && response.data != "") {
                     SessionService.setUserAuthenticated(true);
                     SessionService.setCurrentUser(response.data);
-                    console.log(SessionService.getCurrentUser());
+
                     $location.path("/dashboard");
                 } else {
                     $scope.message = "Incorrect email or password!";
                 }
                 ;
+            },
+            function (err) {
+                console.log(err);
+            }
+        );
+    }
+});
+
+app.controller('addCityCtrl', function (SessionService, $scope, $http) {
+    var city={name:$scope.city};
+    $scope.submitCity = function () {
+        $http.post('http://localhost:8080/user/' + SessionService.getCurrentUser().id + '/addCity', city).then(function (response) {
+
+                ;
+            },
+            function (err) {
+                console.log(err);
             }
         );
     }

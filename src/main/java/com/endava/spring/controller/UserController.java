@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +29,14 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public User create(@RequestBody User user) {
+        List<City> list=new ArrayList<City>();
+        City c1=new City();
+        c1.setName("asdasdas");
+        City c2=new City();
+        c2.setName("sdfsdfd");
+        list.add(c1);
+        list.add(c2);
+        user.setCityList(list);
         return userService.create(user);
     }
 
@@ -35,12 +44,6 @@ public class UserController {
     @ResponseBody
     public List<User> list() {
         return userService.findAll();
-    }
-
-    @RequestMapping(value = "/{id}/cities")
-    @ResponseBody
-    public List<City> cityList(@PathVariable("id") Integer id) {
-        return cityService.findById(id);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -57,4 +60,13 @@ public class UserController {
         return userService.login(user);
     }
 
+    @RequestMapping(value = "/addCity/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public User addCity(@RequestBody City city, @PathVariable("id") Integer id) {
+        User user = userService.findOne(id);
+
+        user.getCityList().add(city);
+
+        return userService.create(user);
+    }
 }

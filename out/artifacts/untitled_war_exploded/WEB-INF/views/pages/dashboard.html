@@ -1,6 +1,26 @@
-<!DOCTYPE html>
+<div class="container">
+    <h2>Your favorite cities</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>City</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody ng-controller="loginCtrl">
+        <tr ng-repeat="city in loggedUser.cityList">
+            <td>{{city.name}}</td>
+            <td>X</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="container" ng-controller="addCityCtrl">
+        <div class="col-md-8">
+            <input type="text" ng-model="city" class="form-control">
+        </div>
+        <div class="col-md-4">
+            <input class="btn btn-primary" type="button" value="Add city" ng-click="submitCity()">
 
-
-WELCOME TO DASHBOARD!
-{{username}}
-
+        </div>
+    </div>
+</div>

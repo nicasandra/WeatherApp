@@ -22,19 +22,7 @@ public class CityServiceImpl implements CityService {
         return cityRepository.save(city);
     }
 
-    public City delete(int id) {
-        return null;
-    }
-
-    public List<City> findAll() {
-        return null;
-    }
-
-    public City update(City city) {
-        return null;
-    }
-
-    public List<City> findById(Integer id) {
+    public List<City> findByUser_id(Integer id) {
         return cityRepository.findByUser_id(id);
     }
 }

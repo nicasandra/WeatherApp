@@ -1,5 +1,7 @@
 package com.endava.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 /**
@@ -12,7 +14,8 @@ public class City {
     private Integer id;
     private String name;
 
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="id_user")
     private User user;
 

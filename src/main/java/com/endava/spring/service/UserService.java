@@ -18,4 +18,6 @@ public interface UserService {
     User register(User user);
 
     User login(User user);
+
+    User findOne(Integer id);
 }

@@ -57,4 +57,8 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    public User findOne(Integer id) {
+        return userRepository.findOne(id);
+    }
 }

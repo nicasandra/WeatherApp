@@ -10,13 +10,7 @@ import java.util.List;
  */
 @Service
 public interface CityService {
-    public City create(City city);
+    City create(City city);
 
-    public City delete(int id);
-
-    public List<City> findAll();
-
-    public City update(City city);
-
-    public List<City> findById(Integer id);
+    List<City> findByUser_id(Integer id);
 }
