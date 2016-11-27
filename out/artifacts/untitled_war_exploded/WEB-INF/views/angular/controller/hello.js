@@ -19,6 +19,9 @@ app.config(function ($routeProvider) {
         .when("/weather", {
             templateUrl: "/res/pages/weather.html"
         })
+        .when("/byCity", {
+            templateUrl: "/res/pages/byCity.html"
+        })
         .when("/", {
             templateUrl: "/res/pages/login.html"
         })
@@ -46,7 +49,7 @@ app.controller('registerCtrl', function ($scope, $http, $location) {
 
 });
 
-app.controller('loginCtrl', function (SessionService, $scope, $http, $location) {
+app.controller('loginCtrl', function (SessionService, $scope, $http, $location, $rootScope) {
     $scope.loggedUser = SessionService.getCurrentUser();
     $scope.submit = function () {
         var user = {};
@@ -81,6 +84,17 @@ app.controller('loginCtrl', function (SessionService, $scope, $http, $location) 
         $http.delete('http://localhost:8080/city/delete/' + id);
         SessionService.getCurrentUser().cityList.splice(i, 1);
     };
+    $scope.showWeather = function(city) {
+        $http.get('http://api.worldweatheronline.com/premium/v1/weather.ashx?q='+city+
+            '&key=d955d43298874365b29132322162511&format=json&num_of_days=3').then(function (response){
+            $rootScope.current_condition=response.data.data.current_condition[0];
+            $rootScope.request=response.data.data.request[0]
+            $rootScope.day1=response.data.data.weather[0];
+            $rootScope.day2=response.data.data.weather[1];
+            $rootScope.day3=response.data.data.weather[2];
+            console.log($rootScope.day1.hourly);
+        })
+    };
 });
 
 app.controller('addCityCtrl', function (SessionService, $scope, $http) {
@@ -100,4 +114,3 @@ app.controller('addCityCtrl', function (SessionService, $scope, $http) {
         );
     };
 });
-

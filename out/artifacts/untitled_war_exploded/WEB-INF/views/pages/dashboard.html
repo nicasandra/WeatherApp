@@ -1,25 +1,34 @@
 <div class="container">
-    <h2>Your favorite cities</h2>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>City</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody ng-controller="loginCtrl">
-        <tr ng-repeat="city in loggedUser.cityList">
-            <td>{{city.name}}</td>
-            <td ng-click="delete(city.id)">{{city.id}}</td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="container" ng-controller="addCityCtrl">
-        <div class="col-md-8">
-            <input type="text" ng-model="city" class="form-control">
+    <div class="row">
+        <div class="col-sm-3">
+            <h2>Your favorite cities</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody ng-controller="loginCtrl">
+                <tr ng-repeat="city in loggedUser.cityList">
+                    <a href="#byCity"><td ng-click="showWeather(city.name)">{{city.name}}</td></a>
+                    <td ng-click="delete(city.id)">{{city.id}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row" ng-controller="addCityCtrl">
+                <div class="col-sm-8">
+                    <input type="text" ng-model="city" class="form-control">
+                </div>
+                <div class="col-sm-4">
+                    <input class="btn btn-primary" type="button" value="Add city" ng-click="submitCity()">
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <input class="btn btn-primary" type="button" value="Add city" ng-click="submitCity()">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-8">
+
+
 
         </div>
     </div>
