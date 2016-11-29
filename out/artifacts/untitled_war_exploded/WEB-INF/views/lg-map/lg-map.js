@@ -203,6 +203,15 @@ $(function() {
             current = shapeAr[id];
 
             if (config.useText) {
+                $.ajax({
+                  url: 'http://api.worldweatheronline.com/premium/v1/weather.ashx?q=' + paths[id].text +
+                  '&key=d955d43298874365b29132322162511&format=json&num_of_days=3&tp=24',
+                  success: function(result){
+                  // $("#div1").html(result);
+                    var current_condition=result.data.current_condition[0];
+                    console.log(result.data);
+                }});
+
               textArea.html(paths[id].text);
             } else {
               window.open(paths[id].url, config.hrefTarget);
