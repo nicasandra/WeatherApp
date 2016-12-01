@@ -1,0 +1,90 @@
+<div class="row" style="margin-top:20px;">
+    <div class="col-sm-12">
+        <div ng-show="show">
+            <div class="row">
+                <h2>{{request.query}}</h2>
+                <table class="table" border="1">
+                    <tr>
+                        <td>Today</td>
+                        <td colspan="2">Temperature</td>
+                        <td>Humidity</td>
+                        <td>Rainfall</td>
+                        <td>Wind speed</td>
+                    </tr>
+                    <tr>
+                        <td>Picture</td>
+                        <td>Now: {{current_condition.temp_C}}&#8451;<br></td>
+                        <td> Feels: {{current_condition.FeelsLikeC}}&#8451;
+                        </td>
+                        <td>{{current_condition.humidity}}</td>
+                        <td>{{current_condition.precipMM}}mm</td>
+                        <td>{{current_condition.windspeedKmph}}Kmph</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <tr>
+                        <td>Tomorrow</td>
+                        <td><b>00-03</b></td>
+                        <td><b>03-06</b></td>
+                        <td><b>06-09</b></td>
+                        <td><b>09-12</b></td>
+                        <td><b>12-15</b></td>
+                        <td><b>15-18</b></td>
+                        <td><b>18-21</b></td>
+                        <td><b>21-24</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Temperature</b></td>
+                        <td ng-repeat="hour in day1.hourly">{{hour.tempC}}&#8451;</td>
+                    </tr>
+                    <tr>
+                        <td><b>Humidity</b></td>
+                        <td ng-repeat="hour in day1.hourly">{{hour.humidity}}%</td>
+                    </tr>
+                    <tr>
+                        <td><b>Rainfall</b></td>
+                        <td ng-repeat="hour in day1.hourly">{{hour.precipMM}}mm</td>
+                    </tr>
+                    <tr>
+                        <td><b>Wind speed</b></td>
+                        <td ng-repeat="hour in day1.hourly">{{hour.windspeedKmph}}Kmph</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <table class="table table-striped">
+                    <tr>
+                        <td>After tomorrow</td>
+                        <td><b>00-03</b></td>
+                        <td><b>03-06</b></td>
+                        <td><b>06-09</b></td>
+                        <td><b>09-12</b></td>
+                        <td><b>12-15</b></td>
+                        <td><b>15-18</b></td>
+                        <td><b>18-21</b></td>
+                        <td><b>21-24</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Temperature</b></td>
+                        <td ng-repeat="hour in day2.hourly">{{hour.tempC}}&#8451;</td>
+                    </tr>
+                    <tr>
+                        <td><b>Humidity</b></td>
+                        <td ng-repeat="hour in day2.hourly">{{hour.humidity}}%</td>
+                    </tr>
+                    <tr>
+                        <td><b>Rainfall</b></td>
+                        <td ng-repeat="hour in day2.hourly">{{hour.precipMM}}mm</td>
+                    </tr>
+                    <tr>
+                        <td><b>Wind speed</b></td>
+                        <td ng-repeat="hour in day2.hourly">{{hour.windspeedKmph}}Kmph</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!--------->
+    </div>
+</div>
