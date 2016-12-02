@@ -1,0 +1,148 @@
+<div class="row"><h2 style="color:white;">{{request.query}}</h2></div>
+<div class="row"
+     style="background-color: white;padding:15px;border-radius:2px;margin-top:15px;">
+    <div class="col-sm-2">
+        <div class="row" style="text-align: center;"><h5 style="margin-bottom:0px;margin-top:0px;">
+            <b>{{day1.date}}</b>
+        </h5></div>
+        <img style="border-radius:8px;margin-top:2px;"
+             ng-src="{{current_condition.weatherIconUrl[0].value}}"/>
+    </div>
+    <div class="col-sm-3">
+        <div class="row"><b>{{dayName1}}</b></div>
+        <div class="row"><h5 style="margin-top:0px;margin-bottom:0px;">
+            {{current_condition.weatherDesc[0].value}}</h5></div>
+        <div class="row"><h2 style="margin-top:0px;margin-bottom:0px;"><span>{{day1.hourly[0].tempC}}</span>&deg;C</h2>
+        </div>
+        <div class="row"><h6 style="margin-top:0px;margin-bottom:0px;"><span>Feels like: {{day1.hourly[0].FeelsLikeC}}</span>&deg;C
+        </h6>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="row"><h5 style="margin-top:4px;margin-bottom:0px;">Min/Max:
+            <span>{{day1.mintempC}}</span>&deg;C/<span>{{day1.maxtempC}}</span>&deg;C</span></h5>
+        </div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Humidity: {{day1.hourly[0].humidity}}%</h5></div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Rainfall: {{day1.hourly[0].precipMM}}mm</h5></div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Wind speed: {{day1.hourly[0].windspeedKmph}}Km/h</h5></div>
+    </div>
+    <div class="col-sm-2">
+        <div class="row"><img width="40" style="border-radius:7px; margin-top:2px; margin-left:auto;
+                        margin-right:auto; display:block;"
+                              src="https://openclipart.org/image/2400px/svg_to_png/220481/1433924269.png"/>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Rise: {{day1.astronomy[0].sunrise}}</span>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Set: {{day1.astronomy[0].sunset}}</span>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="row" text-align="center"><img width="40" style="border-radius:7px; margin-top:2px;margin-left:auto;
+                        margin-right:auto; display:block;"
+                                                  src="https://d30y9cdsu7xlg0.cloudfront.net/png/595-200.png"/>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Rise: {{day1.astronomy[0].moonrise}}</span>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Set: {{day1.astronomy[0].moonset}}</span>
+        </div>
+    </div>
+</div>
+<!-- end of first row -->
+<div class="row"
+     style="background-color: white;padding:15px;border-radius:2px;margin-top:15px;">
+    <div class="col-sm-2">
+        <div class="row" style="text-align: center;"><h5 style="margin-bottom:0px;margin-top:0px;">
+            <b>{{day2.date}}</b>
+        </h5></div>
+        <img style="border-radius:8px;margin-top:2px;"
+             ng-src="{{day2.hourly[0].weatherIconUrl[0].value}}"/>
+    </div>
+    <div class="col-sm-3">
+        <div class="row"><b>{{dayName2}}</b></div>
+        <div class="row"><h5 style="margin-top:0px;margin-bottom:0px;">
+            {{day2.hourly[0].weatherDesc[0].value}}</h5></div>
+        <div class="row"><h2 style="margin-top:0px;margin-bottom:0px;"><span>{{day2.hourly[0].tempC}}</span>&deg;C</h2>
+        </div>
+        <div class="row"><h6 style="margin-top:0px;margin-bottom:0px;"><span>Feels like: {{day2.hourly[0].FeelsLikeC}}</span>&deg;C
+        </h6>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="row"><h5 style="margin-top:4px;margin-bottom:0px;">Min/Max:
+            <span>{{day2.mintempC}}</span>&deg;C/<span>{{day2.maxtempC}}</span>&deg;C</span></h5>
+        </div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Humidity: {{day2.hourly[0].humidity}}%</h5></div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Rainfall: {{day2.hourly[0].precipMM}}mm</h5></div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Wind speed: {{day2.hourly[0].windspeedKmph}}Km/h</h5></div>
+    </div>
+    <div class="col-sm-2">
+        <div class="row"><img width="40" style="border-radius:7px; margin-top:2px; margin-left:auto;
+                        margin-right:auto; display:block;"
+                              src="https://openclipart.org/image/2400px/svg_to_png/220481/1433924269.png"/>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Rise: {{day2.astronomy[0].sunrise}}</span>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Set: {{day2.astronomy[0].sunset}}</span>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="row" text-align="center"><img width="40" style="border-radius:7px; margin-top:2px;margin-left:auto;
+                        margin-right:auto; display:block;"
+                                                  src="https://d30y9cdsu7xlg0.cloudfront.net/png/595-200.png"/>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Rise: {{day2.astronomy[0].moonrise}}</span>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Set: {{day2.astronomy[0].moonset}}</span>
+        </div>
+    </div>
+</div>
+<!-- end of row 2 -->
+<div class="row"
+     style="background-color: white;padding:15px;border-radius:2px;margin-top:15px;">
+    <div class="col-sm-2">
+        <div class="row" style="text-align: center;"><h5 style="margin-bottom:0px;margin-top:0px;">
+            <b>{{day3.date}}</b>
+        </h5></div>
+        <img style="border-radius:8px;margin-top:2px;"
+             ng-src="{{day2.hourly[0].weatherIconUrl[0].value}}"/>
+    </div>
+    <div class="col-sm-3">
+        <div class="row"><b>{{dayName3}}</b></div>
+        <div class="row"><h5 style="margin-top:0px;margin-bottom:0px;">
+            {{day3.hourly[0].weatherDesc[0].value}}</h5></div>
+        <div class="row"><h2 style="margin-top:0px;margin-bottom:0px;"><span>{{day3.hourly[0].tempC}}</span>&deg;C</h2>
+        </div>
+        <div class="row"><h6 style="margin-top:0px;margin-bottom:0px;"><span>Feels like: {{day3.hourly[0].FeelsLikeC}}</span>&deg;C
+        </h6>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="row"><h5 style="margin-top:4px;margin-bottom:0px;">Min/Max:
+            <span>{{day3.mintempC}}</span>&deg;C/<span>{{day3.maxtempC}}</span>&deg;C</span></h5>
+        </div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Humidity: {{day3.hourly[0].humidity}}%</h5></div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Rainfall: {{day3.hourly[0].precipMM}}mm</h5></div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Wind speed: {{day3.hourly[0].windspeedKmph}}Km/h</h5></div>
+    </div>
+    <div class="col-sm-2">
+        <div class="row"><img width="40" style="border-radius:7px; margin-top:2px; margin-left:auto;
+                        margin-right:auto; display:block;"
+                              src="https://openclipart.org/image/2400px/svg_to_png/220481/1433924269.png"/>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Rise: {{day3.astronomy[0].sunrise}}</span>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Set: {{day3.astronomy[0].sunset}}</span>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="row" text-align="center"><img width="40" style="border-radius:7px; margin-top:2px;margin-left:auto;
+                        margin-right:auto; display:block;"
+                                                  src="https://d30y9cdsu7xlg0.cloudfront.net/png/595-200.png"/>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Rise: {{day3.astronomy[0].moonrise}}</span>
+        </div>
+        <div class="row" style="text-align: center;"><span style="font-size:12px;">Set: {{day3.astronomy[0].moonset}}</span>
+        </div>
+    </div>
+</div>
+<!-- end of row 3 -->

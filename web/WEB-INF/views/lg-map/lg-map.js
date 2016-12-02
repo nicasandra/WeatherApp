@@ -209,12 +209,26 @@ $(function () {
                                 url: 'http://api.worldweatheronline.com/premium/v1/weather.ashx?q=' + paths[id].text +
                                 '&key=d955d43298874365b29132322162511&format=json&num_of_days=3&tp=24',
                                 success: function (result) {
+                                    //hide fav elements
+                                    $("#fav").attr("ng-show", "false").attr("class", "ng-scope ng-hide");
+                                    //show map elements
+                                    $("#map").attr("ng-show", "true").attr("class", "ng-scope ng-show");
+                                    //adding data
+                                    var weekday = new Array(7);
+                                    weekday[0] = "Sunday";
+                                    weekday[1] = "Monday";
+                                    weekday[2] = "Tuesday";
+                                    weekday[3] = "Wednesday";
+                                    weekday[4] = "Thursday";
+                                    weekday[5] = "Friday";
+                                    weekday[6] = "Saturday";
+
                                     var w = result.data;
                                     var current = result.data.current_condition[0];
                                     $("#city").text(w.request[0].query);
                                     $("#date0").text(w.weather[0].date);
-                                    $("#icon0").attr("src",current.weatherIconUrl[0].value);
-                                    $("#day0").text("The day");
+                                    $("#icon0").attr("src", current.weatherIconUrl[0].value);
+                                    $("#day0").text(weekday[new Date(w.weather[0].date).getDay()]);
                                     $("#desc0").text(current.weatherDesc[0].value);
                                     $("#temp0").text(current.temp_C);
                                     $("#feels0").text("Feels like: " + current.FeelsLikeC);
@@ -230,26 +244,25 @@ $(function () {
 
                                     console.log(w);
                                     for (var i = 1; i < w.weather.length; i++) {
-                                        $("#date"+i).text(w.weather[i].date);
-                                        $("#icon"+i).attr("src",w.weather[i].hourly[0].weatherIconUrl[0].value);
-                                        $("#day"+i).text("The day");
-                                        $("#desc"+i).text(w.weather[i].hourly[0].weatherDesc[0].value);
-                                        $("#temp"+i).text(w.weather[i].hourly[0].tempC);
-                                        $("#feels"+i).text("Feels like: " + w.weather[i].hourly[0].FeelsLikeC);
-                                        $("#min"+i).text(w.weather[i].mintempC);
-                                        $("#max"+i).text(w.weather[i].maxtempC);
-                                        $("#humidity"+i).text("Humidity: " + w.weather[i].hourly[0].humidity + "%");
-                                        $("#rainfall"+i).text("Rinfall: " + w.weather[i].hourly[0].precipMM + "mm");
-                                        $("#windspeed"+i).text("Wind speed: " + w.weather[i].hourly[0].windspeedKmph + "Km/h");
-                                        $("#sunrise"+i).text("Rise: " + w.weather[i].astronomy[0].sunrise);
-                                        $("#sunset"+i).text("Set: " + w.weather[i].astronomy[0].sunset);
-                                        $("#moonrise"+i).text("Rise: " + w.weather[i].astronomy[0].moonrise);
-                                        $("#moonset"+i).text("Set: " + w.weather[i].astronomy[0].moonset);
+                                        $("#date" + i).text(w.weather[i].date);
+                                        $("#icon" + i).attr("src", w.weather[i].hourly[0].weatherIconUrl[0].value);
+                                        $("#day" + i).text(weekday[new Date(w.weather[i].date).getDay()]);
+                                        $("#desc" + i).text(w.weather[i].hourly[0].weatherDesc[0].value);
+                                        $("#temp" + i).text(w.weather[i].hourly[0].tempC);
+                                        $("#feels" + i).text("Feels like: " + w.weather[i].hourly[0].FeelsLikeC);
+                                        $("#min" + i).text(w.weather[i].mintempC);
+                                        $("#max" + i).text(w.weather[i].maxtempC);
+                                        $("#humidity" + i).text("Humidity: " + w.weather[i].hourly[0].humidity + "%");
+                                        $("#rainfall" + i).text("Rinfall: " + w.weather[i].hourly[0].precipMM + "mm");
+                                        $("#windspeed" + i).text("Wind speed: " + w.weather[i].hourly[0].windspeedKmph + "Km/h");
+                                        $("#sunrise" + i).text("Rise: " + w.weather[i].astronomy[0].sunrise);
+                                        $("#sunset" + i).text("Set: " + w.weather[i].astronomy[0].sunset);
+                                        $("#moonrise" + i).text("Rise: " + w.weather[i].astronomy[0].moonrise);
+                                        $("#moonset" + i).text("Set: " + w.weather[i].astronomy[0].moonset);
                                     }
 
                                 }
                             });
-
                             textArea.html(paths[id].text);
                         } else {
                             window.open(paths[id].url, config.hrefTarget);
@@ -260,7 +273,6 @@ $(function () {
 
                 i++;
             }
-
             if (!config.displayMousePosition) {
                 resizeMap();
                 if (config.responsive) {
