@@ -12,9 +12,9 @@
         <div class="row"><b>{{dayName1}}</b></div>
         <div class="row"><h5 style="margin-top:0px;margin-bottom:0px;">
             {{current_condition.weatherDesc[0].value}}</h5></div>
-        <div class="row"><h2 style="margin-top:0px;margin-bottom:0px;"><span>{{day1.hourly[0].tempC}}</span>&deg;C</h2>
+        <div class="row"><h2 style="margin-top:0px;margin-bottom:0px;"><span>{{current_condition.temp_C}}</span>&deg;C</h2>
         </div>
-        <div class="row"><h6 style="margin-top:0px;margin-bottom:0px;"><span>Feels like: {{day1.hourly[0].FeelsLikeC}}</span>&deg;C
+        <div class="row"><h6 style="margin-top:0px;margin-bottom:0px;"><span>Feels like: {{current_condition.FeelsLikeC}}</span>&deg;C
         </h6>
         </div>
     </div>
@@ -22,9 +22,9 @@
         <div class="row"><h5 style="margin-top:4px;margin-bottom:0px;">Min/Max:
             <span>{{day1.mintempC}}</span>&deg;C/<span>{{day1.maxtempC}}</span>&deg;C</span></h5>
         </div>
-        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Humidity: {{day1.hourly[0].humidity}}%</h5></div>
-        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Rainfall: {{day1.hourly[0].precipMM}}mm</h5></div>
-        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Wind speed: {{day1.hourly[0].windspeedKmph}}Km/h</h5></div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Humidity: {{current_condition.humidity}}%</h5></div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Rainfall: {{current_condition.precipMM}}mm</h5></div>
+        <div class=" row"><h5 style="margin-top:5px;margin-bottom:0px;">Wind speed: {{current_condition.windspeedKmph}}Km/h</h5></div>
     </div>
     <div class="col-sm-2">
         <div class="row"><img width="40" style="border-radius:7px; margin-top:2px; margin-left:auto;
@@ -104,7 +104,7 @@
             <b>{{day3.date}}</b>
         </h5></div>
         <img style="border-radius:8px;margin-top:2px;"
-             ng-src="{{day2.hourly[0].weatherIconUrl[0].value}}"/>
+             ng-src="{{day3.hourly[0].weatherIconUrl[0].value}}"/>
     </div>
     <div class="col-sm-3">
         <div class="row"><b>{{dayName3}}</b></div>

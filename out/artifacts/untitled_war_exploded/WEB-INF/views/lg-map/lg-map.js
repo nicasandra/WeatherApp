@@ -205,64 +205,175 @@ $(function () {
                         current = shapeAr[id];
 
                         if (config.useText) {
+                            //parsing weekday
+                            var weekday = new Array(7);
+                            weekday[0] = "Sunday";
+                            weekday[1] = "Monday";
+                            weekday[2] = "Tuesday";
+                            weekday[3] = "Wednesday";
+                            weekday[4] = "Thursday";
+                            weekday[5] = "Friday";
+                            weekday[6] = "Saturday";
+
+                            var cityCache = {};
+                            cityCache.name = paths[id].text;
                             $.ajax({
-                                url: 'http://api.worldweatheronline.com/premium/v1/weather.ashx?q=' + paths[id].text +
-                                '&key=d955d43298874365b29132322162511&format=json&num_of_days=3&tp=24',
-                                success: function (result) {
-                                    //hide fav elements
-                                    $("#fav").attr("ng-show", "false").attr("class", "ng-scope ng-hide");
-                                    //show map elements
-                                    $("#map").attr("ng-show", "true").attr("class", "ng-scope ng-show");
-                                    //adding data
-                                    var weekday = new Array(7);
-                                    weekday[0] = "Sunday";
-                                    weekday[1] = "Monday";
-                                    weekday[2] = "Tuesday";
-                                    weekday[3] = "Wednesday";
-                                    weekday[4] = "Thursday";
-                                    weekday[5] = "Friday";
-                                    weekday[6] = "Saturday";
-
-                                    var w = result.data;
-                                    var current = result.data.current_condition[0];
-                                    $("#city").text(w.request[0].query);
-                                    $("#date0").text(w.weather[0].date);
-                                    $("#icon0").attr("src", current.weatherIconUrl[0].value);
-                                    $("#day0").text(weekday[new Date(w.weather[0].date).getDay()]);
-                                    $("#desc0").text(current.weatherDesc[0].value);
-                                    $("#temp0").text(current.temp_C);
-                                    $("#feels0").text("Feels like: " + current.FeelsLikeC);
-                                    $("#min0").text(w.weather[0].mintempC);
-                                    $("#max0").text(w.weather[0].maxtempC);
-                                    $("#humidity0").text("Humidity: " + current.humidity + "%");
-                                    $("#rainfall0").text("Rinfall: " + current.precipMM + "mm");
-                                    $("#windspeed0").text("Wind speed: " + current.windspeedKmph + "Km/h");
-                                    $("#sunrise0").text("Rise: " + w.weather[0].astronomy[0].sunrise);
-                                    $("#sunset0").text("Set: " + w.weather[0].astronomy[0].sunset);
-                                    $("#moonrise0").text("Rise: " + w.weather[0].astronomy[0].moonrise);
-                                    $("#moonset0").text("Set: " + w.weather[0].astronomy[0].moonset);
-
-                                    console.log(w);
-                                    for (var i = 1; i < w.weather.length; i++) {
-                                        $("#date" + i).text(w.weather[i].date);
-                                        $("#icon" + i).attr("src", w.weather[i].hourly[0].weatherIconUrl[0].value);
-                                        $("#day" + i).text(weekday[new Date(w.weather[i].date).getDay()]);
-                                        $("#desc" + i).text(w.weather[i].hourly[0].weatherDesc[0].value);
-                                        $("#temp" + i).text(w.weather[i].hourly[0].tempC);
-                                        $("#feels" + i).text("Feels like: " + w.weather[i].hourly[0].FeelsLikeC);
-                                        $("#min" + i).text(w.weather[i].mintempC);
-                                        $("#max" + i).text(w.weather[i].maxtempC);
-                                        $("#humidity" + i).text("Humidity: " + w.weather[i].hourly[0].humidity + "%");
-                                        $("#rainfall" + i).text("Rinfall: " + w.weather[i].hourly[0].precipMM + "mm");
-                                        $("#windspeed" + i).text("Wind speed: " + w.weather[i].hourly[0].windspeedKmph + "Km/h");
-                                        $("#sunrise" + i).text("Rise: " + w.weather[i].astronomy[0].sunrise);
-                                        $("#sunset" + i).text("Set: " + w.weather[i].astronomy[0].sunset);
-                                        $("#moonrise" + i).text("Rise: " + w.weather[i].astronomy[0].moonrise);
-                                        $("#moonset" + i).text("Set: " + w.weather[i].astronomy[0].moonset);
+                                type: "POST",
+                                url: 'http://localhost:8080/cache/getByName',
+                                data: JSON.stringify(cityCache),
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    var hours;
+                                    var currentDay;
+                                    var saveDay;
+                                    if (response != null && response != "") {
+                                        var saveDate = new Date(response[0].saveDate);
+                                        var currentDate = new Date();
+                                        currentDay = weekday[new Date(currentDate).getDay()];
+                                        saveDay = weekday[new Date(saveDate).getDay()];
+                                        hours = Math.abs(currentDate - saveDate) / 36e5;
+                                        console.log(currentDay+saveDay);
                                     }
+                                    if (response != null && response != "" && hours < 3 && currentDay == saveDay) {
+                                        console.log("from cache!");
+                                        //hide fav elements
+                                        $("#fav").attr("ng-show", "false").attr("class", "ng-scope ng-hide");
+                                        $("#mainMessage").attr("ng-show", "false").attr("class", "ng-scope ng-hide");
+                                        //show map elements
+                                        $("#map").attr("ng-show", "true").attr("class", "ng-scope ng-show");
+                                        //Day 1
+                                        $("#cty").text(response[0].name);
+                                        console.log(response[0].name);
+                                        $("#date0").text(response[0].date.split("|")[0]);
+                                        $("#icon0").attr("src", response[0].icon.split("|")[0]);
+                                        $("#day0").text(weekday[new Date(response[0].date.split("|")[0]).getDay()]);
+                                        $("#desc0").text(response[0].description.split("|")[0]);
+                                        $("#temp0").text(response[0].temp.split("|")[0]);
+                                        $("#feels0").text("Feels like: " + response[0].feels.split("|")[0]);
+                                        $("#min0").text(response[0].min.split("|")[0]);
+                                        $("#max0").text(response[0].max.split("|")[0]);
+                                        $("#humidity0").text("Humidity: " + response[0].humidity.split("|")[0] + "%");
+                                        $("#rainfall0").text("Rainfall: " + response[0].rainfall.split("|")[0] + "mm");
+                                        $("#windspeed0").text("Wind speed: " + response[0].windSpeed.split("|")[0] + "Km/h");
+                                        $("#sunrise0").text("Rise: " + response[0].sunrise.split("|")[0]);
+                                        $("#sunset0").text("Set: " + response[0].sunset.split("|")[0]);
+                                        $("#moonrise0").text("Rise: " + response[0].moonrise.split("|")[0]);
+                                        $("#moonset0").text("Set: " + response[0].moonset.split("|")[0]);
 
+                                        for (var i = 1; i < 3; i++) {
+                                            $("#date" + i).text(response[0].date.split("|")[i]);
+                                            $("#icon" + i).attr("src", response[0].icon.split("|")[i]);
+                                            $("#day" + i).text(weekday[new Date(response[0].date.split("|")[i]).getDay()]);
+                                            $("#desc" + i).text(response[0].description.split("|")[i]);
+                                            $("#temp" + i).text(response[0].temp.split("|")[i]);
+                                            $("#feels" + i).text("Feels like: " + response[0].feels.split("|")[i]);
+                                            $("#min" + i).text(response[0].min.split("|")[i]);
+                                            $("#max" + i).text(response[0].max.split("|")[i]);
+                                            $("#humidity" + i).text("Humidity: " + response[0].humidity.split("|")[i] + "%");
+                                            $("#rainfall" + i).text("Rainfall: " + response[0].rainfall.split("|")[i] + "mm");
+                                            $("#windspeed" + i).text("Wind speed: " + response[0].windSpeed.split("|")[i] + "Km/h");
+                                            $("#sunrise" + i).text("Rise: " + response[0].sunrise.split("|")[i]);
+                                            $("#sunset" + i).text("Set: " + response[0].sunset.split("|")[i]);
+                                            $("#moonrise" + i).text("Rise: " + response[0].moonrise.split("|")[i]);
+                                            $("#moonset" + i).text("Set: " + response[0].moonset.split("|")[i]);
+                                        }
+                                    } else {
+                                        console.log("from api!");
+                                        $.ajax({
+                                            url: 'http://api.worldweatheronline.com/premium/v1/weather.ashx?q=' + paths[id].text +
+                                            '&key=d955d43298874365b29132322162511&format=json&num_of_days=3&tp=24',
+                                            success: function (result) {
+                                                //hide fav elements
+                                                $("#fav").attr("ng-show", "false").attr("class", "ng-scope ng-hide");
+                                                $("#mainMessage").attr("ng-show", "false").attr("class", "ng-scope ng-hide");
+                                                //show map elements
+                                                $("#map").attr("ng-show", "true").attr("class", "ng-scope ng-show");
+                                                //adding data
+                                                var weekday = new Array(7);
+                                                weekday[0] = "Sunday";
+                                                weekday[1] = "Monday";
+                                                weekday[2] = "Tuesday";
+                                                weekday[3] = "Wednesday";
+                                                weekday[4] = "Thursday";
+                                                weekday[5] = "Friday";
+                                                weekday[6] = "Saturday";
+
+                                                var w = result.data;
+                                                var current = result.data.current_condition[0];
+                                                $("#cty").text(w.request[0].query);
+                                                $("#date0").text(w.weather[0].date);
+                                                $("#icon0").attr("src", current.weatherIconUrl[0].value);
+                                                $("#day0").text(weekday[new Date(w.weather[0].date).getDay()]);
+                                                $("#desc0").text(current.weatherDesc[0].value);
+                                                $("#temp0").text(current.temp_C);
+                                                $("#feels0").text("Feels like: " + current.FeelsLikeC);
+                                                $("#min0").text(w.weather[0].mintempC);
+                                                $("#max0").text(w.weather[0].maxtempC);
+                                                $("#humidity0").text("Humidity: " + current.humidity + "%");
+                                                $("#rainfall0").text("Rainfall: " + current.precipMM + "mm");
+                                                $("#windspeed0").text("Wind speed: " + current.windspeedKmph + "Km/h");
+                                                $("#sunrise0").text("Rise: " + w.weather[0].astronomy[0].sunrise);
+                                                $("#sunset0").text("Set: " + w.weather[0].astronomy[0].sunset);
+                                                $("#moonrise0").text("Rise: " + w.weather[0].astronomy[0].moonrise);
+                                                $("#moonset0").text("Set: " + w.weather[0].astronomy[0].moonset);
+
+                                                for (var i = 1; i < w.weather.length; i++) {
+                                                    $("#date" + i).text(w.weather[i].date);
+                                                    $("#icon" + i).attr("src", w.weather[i].hourly[0].weatherIconUrl[0].value);
+                                                    $("#day" + i).text(weekday[new Date(w.weather[i].date).getDay()]);
+                                                    $("#desc" + i).text(w.weather[i].hourly[0].weatherDesc[0].value);
+                                                    $("#temp" + i).text(w.weather[i].hourly[0].tempC);
+                                                    $("#feels" + i).text("Feels like: " + w.weather[i].hourly[0].FeelsLikeC);
+                                                    $("#min" + i).text(w.weather[i].mintempC);
+                                                    $("#max" + i).text(w.weather[i].maxtempC);
+                                                    $("#humidity" + i).text("Humidity: " + w.weather[i].hourly[0].humidity + "%");
+                                                    $("#rainfall" + i).text("Rainfall: " + w.weather[i].hourly[0].precipMM + "mm");
+                                                    $("#windspeed" + i).text("Wind speed: " + w.weather[i].hourly[0].windspeedKmph + "Km/h");
+                                                    $("#sunrise" + i).text("Rise: " + w.weather[i].astronomy[0].sunrise);
+                                                    $("#sunset" + i).text("Set: " + w.weather[i].astronomy[0].sunset);
+                                                    $("#moonrise" + i).text("Rise: " + w.weather[i].astronomy[0].moonrise);
+                                                    $("#moonset" + i).text("Set: " + w.weather[i].astronomy[0].moonset);
+                                                }
+
+                                                //Setting variables for caching!
+                                                cityCache.date = w.weather[0].date + "|" + w.weather[1].date + "|" + w.weather[2].date;
+                                                cityCache.dayName = weekday[new Date(w.weather[0].date).getDay()] + "|" + weekday[new Date(w.weather[1].date).getDay()] + "|" + weekday[new Date(w.weather[2].date).getDay()];
+                                                cityCache.feels = current.FeelsLikeC + "|" + w.weather[1].hourly[0].FeelsLikeC + "|" + w.weather[2].hourly[0].FeelsLikeC;
+                                                cityCache.humidity = current.humidity + "|" + w.weather[1].hourly[0].humidity + "|" + w.weather[2].hourly[0].humidity;
+                                                cityCache.icon = current.weatherIconUrl[0].value + "|" + w.weather[1].hourly[0].weatherIconUrl[0].value + "|" + w.weather[2].hourly[0].weatherIconUrl[0].value;
+                                                cityCache.max = w.weather[0].maxtempC + "|" + w.weather[1].maxtempC + "|" + w.weather[2].maxtempC;
+                                                cityCache.min = w.weather[0].mintempC + "|" + w.weather[1].mintempC + "|" + w.weather[2].mintempC;
+                                                cityCache.moonrise = w.weather[0].astronomy[0].moonrise + "|" + w.weather[1].astronomy[0].moonrise + "|" + w.weather[2].astronomy[0].moonrise;
+                                                cityCache.moonset = w.weather[0].astronomy[0].moonset + "|" + w.weather[1].astronomy[0].moonset + "|" + w.weather[2].astronomy[0].moonset;
+                                                cityCache.rainfall = current.precipMM + "|" + w.weather[1].hourly[0].precipMM + "|" + w.weather[2].hourly[0].precipMM;
+                                                cityCache.saveDate = new Date();
+                                                cityCache.sunrise = w.weather[0].astronomy[0].sunrise + "|" + w.weather[1].astronomy[0].sunrise + "|" + w.weather[2].astronomy[0].sunrise;
+                                                cityCache.sunset = w.weather[0].astronomy[0].sunset + "|" + w.weather[1].astronomy[0].sunset + "|" + w.weather[2].astronomy[0].sunset;
+                                                cityCache.temp = current.temp_C + "|" + w.weather[1].hourly[0].tempC + "|" + w.weather[2].hourly[0].tempC;
+                                                cityCache.windSpeed = current.windspeedKmph + "|" + w.weather[1].hourly[0].windspeedKmph + "|" + w.weather[2].hourly[0].windspeedKmph;
+                                                cityCache.description = current.weatherDesc[0].value + "|" + w.weather[1].hourly[0].weatherDesc[0].value + "|" + w.weather[2].hourly[0].weatherDesc[0].value;
+
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: 'http://localhost:8080/cache/save',
+                                                    data: JSON.stringify(cityCache),
+                                                    contentType: "application/json; charset=utf-8",
+                                                    dataType: "json",
+                                                    success: function (response) {
+                                                        console.log(response);
+                                                    }
+                                                });
+
+                                            }
+
+                                        });
+
+                                    }
                                 }
                             });
+
+
                             textArea.html(paths[id].text);
                         } else {
                             window.open(paths[id].url, config.hrefTarget);

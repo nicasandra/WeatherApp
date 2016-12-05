@@ -23,6 +23,6 @@ public class CityCacheServiceImpl implements CityCacheService {
     }
 
     public List<CityCache> findByNameContaining(String name) {
-        return cityCacheRepository.findByNameContaining(name);
+        return cityCacheRepository.findTopByNameContainingOrderBySaveDateDesc(name);
     }
 }

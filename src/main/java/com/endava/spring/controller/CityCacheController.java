@@ -27,7 +27,7 @@ public class CityCacheController {
         return cityCacheService.create(cityCache);
     }
 
-    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    @RequestMapping(value = "/getByName", method = RequestMethod.POST)
     @ResponseBody
     public List<CityCache> get(@RequestBody CityCache cityCache) {
         return cityCacheService.findByNameContaining(cityCache.getName());

@@ -2,23 +2,54 @@
 <div class="container" ng-controller="registerCtrl">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <div class="account-wall">
+            <div class="account-wall" style="border-radius:5px;">
                 <img class="profile-img"
-                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                     src="http://cat.vistamind.com/wp-content/uploads/student_login.png"
                      alt="">
-                <form class="form-signin" action="/" id="myRegister">
-                    <input type="text" class="form-control" ng-model="firstname" placeholder="First name" required>
-                    <input type="text" class="form-control" ng-model="lastname" placeholder="Last name" required>
-                    <input type="text" class="form-control" ng-model="email" placeholder="Email" required>
-                    <input type="password" class="form-control" ng-model="password" placeholder="Password" required>
-                    <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="submit()">Register</button>
+                <form class="form-signin" action="/" id="myRegister" name="register">
+                    <input type="text" class="form-control" name="firstname" ng-model="firstname" ng-minlength="3"
+                           ng-maxlength="20" placeholder="First name">
+                    <div class="alert alert-danger"
+                         ng-show="register.firstname.$error.minlength || register.firstname.$error.maxlength"
+                         style="padding-top:1px; padding-bottom:1px;margin-top:3px;margin-bottom:3px;">
+                        <span ng-show="register.firstname.$error.minlength">Too short!</span>
+                        <span ng-show="register.firstname.$error.maxlength">Too large!</span>
+                    </div>
+
+                    <input type="text" class="form-control" name="lastname" ng-model="lastname" ng-minlength="3"
+                           ng-maxlength="20" placeholder="Last name" required>
+                    <div class="alert alert-danger"
+                         ng-show="register.lastname.$error.minlength || register.lastname.$error.maxlength"
+                         style="padding-top:1px; padding-bottom:1px;margin-top:3px;margin-bottom:3px;">
+                        <span ng-show="register.lastname.$error.minlength">Too short!</span>
+                        <span ng-show="register.lastname.$error.maxlength">Too large!</span>
+                    </div>
+
+                    <input type="email" class="form-control" name="email" ng-model="email" placeholder="Email">
+                    <div class="alert alert-danger" ng-show="register.email.$invalid && !register.email.$pristine"
+                         style="padding-top:1px; padding-bottom:1px;margin-top:3px;margin-bottom:3px;">
+                        <span ng-show="register.email.$invalid && !register.email.$pristine">Invalid email!</span>
+                    </div>
+
+                    <input type="password" class="form-control" name="password" ng-model="password"
+                           placeholder="Password" ng-minlength="6" ng-maxlength="25">
+                    <div class="alert alert-danger"
+                         ng-show="register.password.$error.minlength || register.password.$error.maxlength"
+                         style="padding-top:1px; padding-bottom:1px;margin-top:3px;margin-bottom:3px;">
+                        <span ng-show="register.password.$error.minlength">Too short!</span>
+                        <span ng-show="register.password.$error.maxlength">Too large!</span>
+                    </div>
+
+                    <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="submit()"
+                            ng-disabled="register.$invalid">Register
+                    </button>
                     <div class="text-danger text-center">
                         <br>
                         <strong>{{message}}</strong>
                     </div>
                 </form>
             </div>
-            <a href="#login" class="text-center new-account">Sign in</a>
+            <a href="#login" class="text-center new-account" style="color:white;">Sign in</a>
         </div>
     </div>
 </div>

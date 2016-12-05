@@ -12,19 +12,18 @@ public class CityCache {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-
-    @Column(columnDefinition = "DATETIME")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private String date;
+    private String description;
+    @Column(length = 450)
     private String icon;
     private String dayName;
-    private Integer temp;
-    private Integer feels;
-    private Integer min;
-    private Integer max;
-    private Integer humidity;
-    private Double rainfall;
-    private Double windSpeed;
+    private String temp;
+    private String feels;
+    private String min;
+    private String max;
+    private String humidity;
+    private String rainfall;
+    private String windSpeed;
     private String sunrise;
     private String sunset;
     private String moonrise;
@@ -34,27 +33,28 @@ public class CityCache {
     @Temporal(TemporalType.TIMESTAMP)
     private Date saveDate;
 
-    @Override
-    public String toString() {
-        return "CityCache{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", date=" + date +
-                ", icon='" + icon + '\'' +
-                ", dayName='" + dayName + '\'' +
-                ", temp=" + temp +
-                ", feels=" + feels +
-                ", min=" + min +
-                ", max=" + max +
-                ", humidity=" + humidity +
-                ", rainfall=" + rainfall +
-                ", windSpeed=" + windSpeed +
-                ", sunrise='" + sunrise + '\'' +
-                ", sunset='" + sunset + '\'' +
-                ", moonrise='" + moonrise + '\'' +
-                ", moonset='" + moonset + '\'' +
-                ", saveDate=" + saveDate +
-                '}';
+    public CityCache() {
+    }
+
+    public CityCache(String name, String date, String description, String icon, String dayName, String temp, String feels, String min, String max, String humidity, String rainfall, String windSpeed, String sunrise, String sunset, String moonrise, String moonset, Date saveDate) {
+
+        this.name = name;
+        this.date = date;
+        this.description = description;
+        this.icon = icon;
+        this.dayName = dayName;
+        this.temp = temp;
+        this.feels = feels;
+        this.min = min;
+        this.max = max;
+        this.humidity = humidity;
+        this.rainfall = rainfall;
+        this.windSpeed = windSpeed;
+        this.sunrise = sunrise;
+        this.sunset = sunset;
+        this.moonrise = moonrise;
+        this.moonset = moonset;
+        this.saveDate = saveDate;
     }
 
     public Integer getId() {
@@ -73,12 +73,20 @@ public class CityCache {
         this.name = name;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getIcon() {
@@ -97,59 +105,59 @@ public class CityCache {
         this.dayName = dayName;
     }
 
-    public Integer getTemp() {
+    public String getTemp() {
         return temp;
     }
 
-    public void setTemp(Integer temp) {
+    public void setTemp(String temp) {
         this.temp = temp;
     }
 
-    public Integer getFeels() {
+    public String getFeels() {
         return feels;
     }
 
-    public void setFeels(Integer feels) {
+    public void setFeels(String feels) {
         this.feels = feels;
     }
 
-    public Integer getMin() {
+    public String getMin() {
         return min;
     }
 
-    public void setMin(Integer min) {
+    public void setMin(String min) {
         this.min = min;
     }
 
-    public Integer getMax() {
+    public String getMax() {
         return max;
     }
 
-    public void setMax(Integer max) {
+    public void setMax(String max) {
         this.max = max;
     }
 
-    public Integer getHumidity() {
+    public String getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(Integer humidity) {
+    public void setHumidity(String humidity) {
         this.humidity = humidity;
     }
 
-    public Double getRainfall() {
+    public String getRainfall() {
         return rainfall;
     }
 
-    public void setRainfall(Double rainfall) {
+    public void setRainfall(String rainfall) {
         this.rainfall = rainfall;
     }
 
-    public Double getWindSpeed() {
+    public String getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(Double windSpeed) {
+    public void setWindSpeed(String windSpeed) {
         this.windSpeed = windSpeed;
     }
 
@@ -190,30 +198,6 @@ public class CityCache {
     }
 
     public void setSaveDate(Date saveDate) {
-        this.saveDate = saveDate;
-    }
-
-    public CityCache() {
-
-    }
-
-    public CityCache(String name, Date date, String icon, String dayName, Integer temp, Integer feels, Integer min, Integer max, Integer humidity, Double rainfall, Double windSpeed, String sunrise, String sunset, String moonrise, String moonset, Date saveDate) {
-
-        this.name = name;
-        this.date = date;
-        this.icon = icon;
-        this.dayName = dayName;
-        this.temp = temp;
-        this.feels = feels;
-        this.min = min;
-        this.max = max;
-        this.humidity = humidity;
-        this.rainfall = rainfall;
-        this.windSpeed = windSpeed;
-        this.sunrise = sunrise;
-        this.sunset = sunset;
-        this.moonrise = moonrise;
-        this.moonset = moonset;
         this.saveDate = saveDate;
     }
 }

@@ -4,7 +4,8 @@
         <div class="col-md-8">
             <div class="row" ng-controller="loginCtrl">
                 <ul>
-                    <li ng-repeat="city in loggedUser.cityList" ng-click="showWeather(city.name)">{{city.name}}&nbsp;&nbsp;
+                    <li style="cursor:pointer; cursor:hand;" ng-repeat="city in loggedUser.cityList"
+                        ng-click="showWeather(city.name)">{{city.name}}&nbsp;&nbsp;
                         <span ng-click="delete(city.id)" class="glyphicon glyphicon-remove"></span></li>
                 </ul>
             </div>
@@ -12,7 +13,8 @@
         <div class="col-md-4">
             <div class="row" ng-controller="addCityCtrl">
                 <div class="col-sm-8">
-                    <input type="text" ng-model="city" class="form-control">
+                    <input type="text" id="city" ng-model="city" ng-change="initAutocomplete()"
+                           placeholder="Type city.." class="form-control">
                 </div>
                 <div class="col-sm-4">
                     <input class="btn btn-primary" type="button" value="Add city" ng-click="submitCity()">
@@ -31,11 +33,22 @@
             </div>
         </div>
         <div class="col-sm-6">
+            <div ng-show="true" id="mainMessage" style="margin-top:150px;">
+                <p>
+                <h1 style="color:white;text-align:center;">You can search for weather forecast by map or by adding
+                    favorite cities.</h1></p>
+            </div>
             <ng-include id="map" ng-show="false" src="'res/pages/map.html'"></ng-include>
             <ng-include id="fav" ng-show="false" src="'res/pages/favorites.html'"></ng-include>
         </div>
+
+        <img width="35" ng-controller="logoutCtrl" ng-click="logout()"
+             style="position:absolute;top:17.5px;cursor:pointer; cursor:hand;"
+             src="http://www.clker.com/cliparts/R/3/q/f/H/n/power-button-md.png"/>
 
 
     </div>
 </div>
 </div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8Dt9ppnPbrcUUzMOFoqlc1eW7I98ory4&libraries=places&language=en-GB"
+        async defer></script>

@@ -2,21 +2,36 @@
 <div class="container" ng-controller="loginCtrl">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <div class="account-wall">
+            <div class="account-wall" style="border-radius:5px;">
                 <img class="profile-img"
-                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                     src="http://cat.vistamind.com/wp-content/uploads/student_login.png"
                      alt="">
-                <form class="form-signin" action="/" id="myLogin">
-                    <input type="text" class="form-control" ng-model="email" placeholder="Email" required>
-                    <input type="password" class="form-control" ng-model="password" placeholder="Password" required>
-                    <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="submit()">Login</button>
+                <form class="form-signin" action="/" id="myLogin" name="login">
+                    <input type="email" name="email" class="form-control" ng-model="email" placeholder="Email">
+                    <div class="alert alert-danger" ng-show="login.email.$invalid && !login.email.$pristine"
+                         style="padding-top:1px; padding-bottom:1px;margin-top:3px;margin-bottom:3px;">
+                        <span ng-show="login.email.$invalid && !login.email.$pristine">Invalid email!</span>
+                    </div>
+
+                    <input type="password" name="password" ng-minlength="6" ng-maxlength="25" class="form-control"
+                           ng-model="password" placeholder="Password" required>
+                    <div class="alert alert-danger"
+                         ng-show="login.password.$error.minlength || login.password.$error.maxlength"
+                         style="padding-top:1px; padding-bottom:1px;margin-top:3px;margin-bottom:3px;">
+                        <span ng-show="login.password.$error.minlength">Too short!</span>
+                        <span ng-show="login.password.$error.maxlength">Too large!</span>
+                    </div>
+
+                    <button class="btn btn-lg btn-primary btn-block" ng-disabled="login.$invalid" type="button"
+                            ng-click="submit()">Login
+                    </button>
                     <div class="text-danger text-center">
                         <br>
                         <strong>{{message}}</strong>
                     </div>
                 </form>
             </div>
-            <a href="#register" class="text-center new-account">Create an account </a>
+            <a href="#register" class="text-center new-account" style="color:white;">Create an account </a>
         </div>
     </div>
 </div>
