@@ -233,10 +233,9 @@ $(function () {
                                         currentDay = weekday[new Date(currentDate).getDay()];
                                         saveDay = weekday[new Date(saveDate).getDay()];
                                         hours = Math.abs(currentDate - saveDate) / 36e5;
-                                        console.log(currentDay+saveDay);
                                     }
                                     if (response != null && response != "" && hours < 3 && currentDay == saveDay) {
-                                        console.log("from cache!");
+                                        console.log(response[0].name+" loaded from cache!");
                                         //hide fav elements
                                         $("#fav").attr("ng-show", "false").attr("class", "ng-scope ng-hide");
                                         $("#mainMessage").attr("ng-show", "false").attr("class", "ng-scope ng-hide");
@@ -244,7 +243,6 @@ $(function () {
                                         $("#map").attr("ng-show", "true").attr("class", "ng-scope ng-show");
                                         //Day 1
                                         $("#cty").text(response[0].name);
-                                        console.log(response[0].name);
                                         $("#date0").text(response[0].date.split("|")[0]);
                                         $("#icon0").attr("src", response[0].icon.split("|")[0]);
                                         $("#day0").text(weekday[new Date(response[0].date.split("|")[0]).getDay()]);

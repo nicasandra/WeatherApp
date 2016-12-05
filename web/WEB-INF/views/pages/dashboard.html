@@ -12,12 +12,14 @@
         </div>
         <div class="col-md-4">
             <div class="row" ng-controller="addCityCtrl">
-                <div class="col-sm-8">
+                <div class="col-sm-10">
                     <input type="text" id="city" ng-model="city" ng-change="initAutocomplete()"
-                           placeholder="Type city.." class="form-control">
+                           placeholder="Type city..." class="form-control">
                 </div>
-                <div class="col-sm-4">
-                    <input class="btn btn-primary" type="button" value="Add city" ng-click="submitCity()">
+                <div class="col-sm-2">
+                    <input class="btn btn-primary" style="margin-left:-105px; border-radius:0px 4px 4px 0px;"
+                           type="button" value="Add city"
+                           ng-click="submitCity()">
                 </div>
             </div>
         </div>
@@ -41,12 +43,16 @@
             <ng-include id="map" ng-show="false" src="'res/pages/map.html'"></ng-include>
             <ng-include id="fav" ng-show="false" src="'res/pages/favorites.html'"></ng-include>
         </div>
+        <div ng-controller="logoutCtrl" class="logoutBtn" ng-click="logout()">
+            <img width="30" src="http://www.clker.com/cliparts/R/3/q/f/H/n/power-button-md.png"/>
 
-        <img width="35" ng-controller="logoutCtrl" ng-click="logout()"
-             style="position:absolute;top:17.5px;cursor:pointer; cursor:hand;"
-             src="http://www.clker.com/cliparts/R/3/q/f/H/n/power-button-md.png"/>
+        </div>
 
 
+    </div>
+    <div class="row" style="text-align:center;">
+        <p style="color:white;bottom:0;position:absolute;left:0;right:0;margin-left:auto;margin-right:auto;">
+            Copyright &copy; endava.com</p>
     </div>
 </div>
 </div>

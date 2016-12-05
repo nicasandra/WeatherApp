@@ -568,22 +568,22 @@ var paths = [{
 //Pins config
 ////////////////////
 var pins = [{
-    //text displayed in toolti,
-    name: 'Arad',
-    //pin x position
-    xPos: 72,
-    //pin y position
-    yPos: 193,
-    //pin fill color
-    color: '#ffc90e',
-    //pin hover color
-    hoverColor: '#E32F02',
-    //pin selected color
-    selectedColor: '#feb41c',
-    //pin url is useText false
-    url: 'http://themeforest.net/user/lglab/?ref=LGLab',
-    //text displayed in textarea when pin is clicked and useText true
-    text: 'Arad'
+    // //text displayed in toolti,
+    // name: 'Arad',
+    // //pin x position
+    // xPos: 72,
+    // //pin y position
+    // yPos: 193,
+    // //pin fill color
+    // color: '#ffc90e',
+    // //pin hover color
+    // hoverColor: '#E32F02',
+    // //pin selected color
+    // selectedColor: '#feb41c',
+    // //pin url is useText false
+    // url: 'http://themeforest.net/user/lglab/?ref=LGLab',
+    // //text displayed in textarea when pin is clicked and useText true
+    // text: 'Arad'
   }
 
 ]

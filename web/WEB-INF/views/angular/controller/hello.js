@@ -34,7 +34,6 @@ app.controller('registerCtrl', function ($scope, $http, $location) {
         user.password = $scope.password;
         user.firstname = $scope.firstname;
         user.lastname = $scope.lastname;
-        console.log(user);
         $http.post('http://localhost:8080/user/register', user).then(function (response) {
                 if (response.data) {
                     $location.path("/login");
@@ -105,7 +104,6 @@ app.controller('loginCtrl', function (SessionService, $scope, $http, $location, 
                 var currentDate = new Date();
                 currentDay = weekday[new Date(currentDate).getDay()];
                 saveDay = weekday[new Date(saveDate).getDay()];
-                console.log(currentDay + saveDay);
                 hours = Math.abs(currentDate - saveDate) / 36e5;
             }
             if (response.data != null && response.data != "" && hours < 3 && currentDay == saveDay) {
@@ -278,7 +276,6 @@ app.controller('addCityCtrl', function (SessionService, $scope, $http) {
         city.name = $scope.city;
         $http.post('http://localhost:8080/city/create/' + SessionService.getCurrentUser().id, city).then(function (response) {
                 console.log(SessionService.getCurrentUser().cityList);
-                console.log($scope.city);
                 SessionService.getCurrentUser().cityList.push({'id': response.data.id, 'name': $scope.city});
                 $scope.city = '';
                 ;
@@ -296,7 +293,7 @@ app.controller('addCityCtrl', function (SessionService, $scope, $http) {
             });
         autocomplete.addListener('place_changed', function () {
             var place = autocomplete.getPlace();
-            console.log(place.formatted_address);
+          //  console.log(place.formatted_address);
             $scope.city = place.formatted_address;
         });
     };
