@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -40,9 +41,18 @@ public class CityController {
         return cityService.findByUser_id(user.getId());
     }
 
+    @RequestMapping("/getWeather/{city}")
+    @ResponseBody
+    public String getWeather(@PathVariable String city) {
+        RestTemplate restTemplate = new RestTemplate();
+        String data=restTemplate.getForObject("http://api.worldweatheronline.com/premium/v1/weather.ashx?q=" + city +
+                        "&key=d955d43298874365b29132322162511&format=json&num_of_days=3&tp=24", String.class);
+        return data;
+    }
+
     @RequestMapping("/delete/{idCity}")
     @ResponseBody
-    public void deleteCity(@PathVariable Integer idCity){
+    public void deleteCity(@PathVariable Integer idCity) {
         cityService.delete(idCity);
     }
 }

@@ -210,8 +210,7 @@ app.controller('loginCtrl', function (SessionService, $scope, $http, $location, 
 
 
             } else {
-                $http.get('http://api.worldweatheronline.com/premium/v1/weather.ashx?q=' + city +
-                    '&key=d955d43298874365b29132322162511&format=json&num_of_days=3&tp=24').then(function (response) {
+                $http.get('http://localhost:8080/city/getWeather/'+city).then(function (response) {
                     console.log(cityCache.name + "from api!");
                     // hide map elements
                     var myEl = angular.element(document.querySelector('#map'));

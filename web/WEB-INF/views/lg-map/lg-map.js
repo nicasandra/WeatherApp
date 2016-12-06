@@ -279,8 +279,7 @@ $(function () {
                                     } else {
                                         console.log("from api!");
                                         $.ajax({
-                                            url: 'http://api.worldweatheronline.com/premium/v1/weather.ashx?q=' + paths[id].text +
-                                            '&key=d955d43298874365b29132322162511&format=json&num_of_days=3&tp=24',
+                                            url: 'http://localhost:8080/city/getWeather/' + paths[id].text,
                                             success: function (result) {
                                                 //hide fav elements
                                                 $("#fav").attr("ng-show", "false").attr("class", "ng-scope ng-hide");
